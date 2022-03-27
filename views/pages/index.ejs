@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            list-style: none;
+        }
+
+        body {
+            background-color: #ddd;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container form {
+            background-color: rgb(31, 121, 255);
+            border-radius: 5px;
+            padding: 1rem;
+        }
+
+        .container label {
+            font-size: large;
+        }
+
+        .container input {
+            border: 0px;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .container input:last-child {
+            width: 100%;
+        }
+
+        .blogs {
+            padding: 1rem;
+        }
+
+        .item {
+            width: 250px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: rgb(167, 202, 255);
+            border-radius: 5px;
+        }
+
+        .description {
+            font-size: small;
+            margin: 3px 0;
+        }
+
+        .control {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .control button {
+            width: 45%;
+            border: 0px;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>All Blog</h1>
+    
+        <form action="/post" method="post">
+            <label>Insert Blog</label><br><br>
+            <label>Title : </label>
+            <input type="text" name="title" required><br><br>
+            <label>Description : </label>
+            <input type="text" name="description"><br><br>
+            <input type="submit">
+        </form>
+    
+        <div class="blogs">
+            <% docs.forEach(blog => { %>
+                <div class="item" id="<%= blog._id %>">
+                    <ul>
+                        <li><%= blog.title%></li>
+                        <li class="description"><%= blog.description%></li>
+                    </ul>
+                    <div class="control">
+                        <button class="Edit" id="<%= blog._id %>">Edit</button>
+                        <button class="Delete" id="<%= blog._id %>">Delete</button>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+
+    <script>
+        let Edit = document.getElementsByClassName("Edit")
+        let Delete = document.getElementsByClassName("Delete")
+
+        for(let i = 0; i < Edit.length; i++) {
+            Edit[i].addEventListener('click', (e) => {
+                window.location.href = 'http://localhost:8080/edit/' + e.target.id
+            })
+            Delete[i].addEventListener('click', (e) => {
+                window.location.href = 'http://localhost:8080/delete/' + e.target.id
+            })
+        }
+    </script>
+
+</body>
+</html>
