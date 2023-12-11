@@ -6,8 +6,9 @@ var BlogSchema = new mongoose.Schema({
         required: 'This field is required.'
     },
     description: {
+        required: 'This field is required.',
         type: String
     }
-}, { versionKey: false });
+}, { versionKey: false, timestamps: true });
 
 mongoose.model('Blog', BlogSchema);

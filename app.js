@@ -4,12 +4,13 @@ const bodyparser = require('body-parser');
 const app = express();
 const PORT = 8080
 
-const route = require('./router/index')
+const route = require('./router')
 
-app.set('view engine', 'ejs');
-
-app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use('/', route)
 
 app.listen(PORT, () => console.log(`App listen on Port : ${PORT}`))
+
+process.on('uncaughtException', (error) => {
+    console.log(error)
+})
